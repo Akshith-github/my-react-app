@@ -9,28 +9,35 @@ function FormPage() {
     const [currentFormData, setCurrentFormData] = useState({});
     const [fetchFormData, setFetchFormData] = useState({});
     const [fetchApiResponse, setFetchApiResponse] = useState([]);
+    const [fetchError, setFetchError] = useState(null);
     const today = new Date().toISOString().split('T')[0]; // Get today's date in yyyy-MM-dd format
     const fiveYearsAgo = new Date();
     fiveYearsAgo.setFullYear(fiveYearsAgo.getFullYear() - 5); // Subtract 5 years
     // const minDate = fiveYearsAgo.toISOString().split('T')[0]; // Get the date 5 years ago in yyyy-MM-dd format
     const [minDate, setMinDate] = useState('');
 
-    const handleCurrentFormChange = (e) => {
+    const handleFetchFormChange = (e) => {
         const { name, value } = e.target;
-        setCurrentFormData(prevState => ({
-          ...prevState,
-          [name]: value
-        }));
-      };
-    
-      const handleFetchFormChange = (e) => {
-        const { name, value } = e.target;
-        setFetchFormData(prevState => ({
-          ...prevState,
-          [name]: value
-        }));
-        if (name === 'start_date') {
-            setMinDate(value);
+        if (name === 'count') {
+            // If 'count' value is selected, reset all date values to empty strings
+            setFetchFormData(prevState => ({
+              ...prevState,
+              start_date: '',
+              end_date: '',
+              count: value
+            }));
+            setMinDate(''); // Reset minDate as well
+          } else {
+            setFetchFormData(prevState => {
+                const { count, ...rest } = prevState; // Destructure previous state without 'count'
+                return {
+                  ...rest,
+                  [name]: value
+                };
+              });
+              if (name === 'start_date' || name === 'end_date') {
+                setMinDate(value);
+              }
           }
       };
     
@@ -40,8 +47,11 @@ function FormPage() {
           const response = await axios.get('http://localhost:8080/apicall/current', { params: currentFormData });
           const responseData = Array.isArray(response.data) ? response.data : [response.data];
           setFetchApiResponse(responseData);
+          setFetchError(null); // Clear any previous errors
         } catch (error) {
-          console.log('Error fetching current data:', error);
+          console.error('Error fetching data:', error);
+          setFetchError(error.message); // Set error message
+          setFetchApiResponse([]); // Clear the response data
         }
       };
     
@@ -51,14 +61,25 @@ function FormPage() {
             console.log(fetchFormData);
           const response = await axios.get('http://localhost:8080/apicall/fetch', { params: fetchFormData });
           console.log(response.data);
-          setFetchApiResponse(response.data);
+          const responseData = Array.isArray(response.data) ? response.data : [response.data];
+          setFetchApiResponse(responseData);
+          setFetchError(null); // Clear any previous errors
         } catch (error) {
-          console.log('Error fetching data:', error);
+          console.error('Error fetching data:', error);
+          setFetchError(error.message); // Set error message
+          setFetchApiResponse([]); // Clear the response data
         }
       };
 
   return (
+    
     <div className="container mt-5">
+        {fetchError && (
+            <div style={{ color: 'red' }}>
+                <p>Failed to fetch data:</p>
+                <p>{fetchError}</p>
+            </div>
+            )}
       <h1>Form Page</h1>
       <div className="row">
         <div className="col-md-6">
