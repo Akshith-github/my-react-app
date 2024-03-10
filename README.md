@@ -1,7 +1,8 @@
 # Getting Started with Create React App
 
-
-[![Watch the video]()](https://github.com/Akshith-github/my-react-app/blob/master/Project%20presentation%20-%20Made%20with%20Clipchamp.mp4)
+Presentation at https://www.youtube.com/watch?v=wxkILP-6l0c
+ 
+[![IMAGE ALT TEXT HERE]()](https://www.youtube.com/watch?v=wxkILP-6l0c)
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
