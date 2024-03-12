@@ -11,7 +11,7 @@ function Result({ result }) {
         {result.media_type === 'image' ? (
           <div>
             <img src={result.url} alt={result.title} className="card-img-top" />
-            <p className="card-text">Click <a href={result.hdurl} target="_blank" rel="noopener noreferrer">here</a> for high-resolution image</p>
+            <p className="card-text">Click <a href={result.hdurl} target="_blank" rel="noopener noreferrer">here for high-resolution image</a> </p>
           </div>
         ) : result.media_type === 'video' ? (
           <div className="embed-responsive embed-responsive-16by9">
@@ -20,6 +20,8 @@ function Result({ result }) {
         ) : (
           <p className="card-text">Media type: {result.media_type}</p>
         )}
+        <p className="card-text">media_type: {result.media_type}</p>
+        <p className="card-text">service_version: {result.service_version}</p>
       </div>
     </div>
   );

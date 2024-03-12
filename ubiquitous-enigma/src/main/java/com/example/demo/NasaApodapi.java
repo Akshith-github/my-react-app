@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,11 +23,14 @@ class CustomResponse {
     String copyright,date,explanation,hdurl,media_type,service_version,title,url;
 }
 
+
 @RestController
 @RequestMapping("/apicall")
+@CrossOrigin(origins = "*")
 public class NasaApodapi {
 
 	@GetMapping("/fetch")
+    @CrossOrigin(origins = "*")
 	public ResponseEntity<?> greeting(@RequestParam(value = "date", required = false) String date,
         @RequestParam(value = "start_date", required = false) String start_date,
         @RequestParam(value = "end_date",required = false) String end_date,
@@ -68,6 +72,7 @@ public class NasaApodapi {
 	}
 
     @GetMapping("/current")
+    @CrossOrigin(origins = "*")
     public CustomResponse currentPOD(){
         RestTemplate restTemplate = new RestTemplate();
         CustomResponse result = restTemplate.getForObject("https://api.nasa.gov/planetary/apod?api_key=A5YXyNIgauwGy1hVpYEfysl7Fhecl7HgYIuGKU6l", CustomResponse.class);
