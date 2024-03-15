@@ -19,7 +19,7 @@ function FormPage() {
     // Make API call when the component mounts with the current date
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://8080-akshithgithu-myreactapp-9sxvmr6mcvj.ws-us108.gitpod.io/apicall/fetch', { params: fetchFormData });
+        const response = await axios.get('/apicall/fetch', { params: fetchFormData });
         const responseData = Array.isArray(response.data) ? response.data : [response.data];
         setFetchApiResponse(responseData);
         setFetchError(null); // Clear any previous errors
@@ -69,7 +69,7 @@ function FormPage() {
         Object.entries(currentFormData).filter(([key, value]) => key !== 'fetchType' && value !== null && value !== '')
       );
 
-      const response = await axios.get('https://8080-akshithgithu-myreactapp-9sxvmr6mcvj.ws-us108.gitpod.io/apicall/current', { params: filteredFormData });
+      const response = await axios.get('/apicall/current', { params: filteredFormData });
       const responseData = Array.isArray(response.data) ? response.data : [response.data];
       setFetchApiResponse(responseData);
       setFetchError(null); // Clear any previous errors
@@ -83,7 +83,7 @@ function FormPage() {
   const handleFetchFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get('https://8080-akshithgithu-myreactapp-9sxvmr6mcvj.ws-us108.gitpod.io/apicall/fetch', { params: fetchFormData });
+      const response = await axios.get('/apicall/fetch', { params: fetchFormData });
       const responseData = Array.isArray(response.data) ? response.data : [response.data];
       setFetchApiResponse(responseData);
       setFetchError(null); // Clear any previous errors
