@@ -1,0 +1,77 @@
+.
+├── b11513ec41e5f4b223d9.woff
+├── db000d08a7fc8ca90894.woff2
+├── package.json
+├── package-lock.json
+├── Project presentation - Made with Clipchamp.mp4
+├── project_Struct.txt
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json
+│   └── robots.txt
+├── README.md
+├── src
+│   ├── ApiUsage.js
+│   ├── App.css
+│   ├── App.js
+│   ├── App.test.js
+│   ├── FormPage.js
+│   ├── Home.js
+│   ├── index.css
+│   ├── index.js
+│   ├── logo.svg
+│   ├── reportWebVitals.js
+│   ├── Result.js
+│   └── setupTests.js
+├── ubiquitous-enigma
+│   ├── build.gradle
+│   ├── gradle
+│   │   └── wrapper
+│   │       └── gradle-wrapper.properties
+│   ├── gradlew
+│   ├── gradlew.bat
+│   ├── HELP.md
+│   ├── image-1.png
+│   ├── image-2.png
+│   ├── image-3.png
+│   ├── image.png
+│   ├── readme.md
+│   ├── settings.gradle
+│   ├── src
+│   │   ├── main
+│   │   │   ├── java
+│   │   │   │   └── com
+│   │   │   │       └── example
+│   │   │   │           └── demo
+│   │   │   │               ├── DemoApplication.java
+│   │   │   │               ├── domain
+│   │   │   │               │   └── Greeting.java
+│   │   │   │               ├── Hello.java
+│   │   │   │               ├── HomeController.java
+│   │   │   │               └── NasaApodapi.java
+│   │   │   └── resources
+│   │   │       ├── application.properties
+│   │   │       ├── static
+│   │   │       │   └── built
+│   │   │       │       ├── bundle.js
+│   │   │       │       └── node_modules_web-vitals_dist_web-vitals_js.bundle.js
+│   │   │       └── templates
+│   │   │           ├── favicon.ico
+│   │   │           ├── index.html
+│   │   │           ├── logo192.png
+│   │   │           ├── logo512.png
+│   │   │           ├── manifest.json
+│   │   │           └── robots.txt
+│   │   └── test
+│   │       └── java
+│   │           └── com
+│   │               └── example
+│   │                   └── demo
+│   │                       └── DemoApplicationTests.java
+│   └── tests.http
+└── webpack.config.js
+
+21 directories, 53 files
