@@ -49,3 +49,4 @@ replay_pid*
 
 ubiquitous-enigma/.gradle/
 ubiquitous-enigma/build/
+ubiquitous-enigma/src/main/react/node_modules/
