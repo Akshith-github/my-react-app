@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link , Outlet} from 'react-rout
 import Home from './Home';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -11,6 +12,8 @@ import FormPage from './FormPage';
 import ApiUsagePage from './ApiUsage';
 
 function App() {
+
+  const navigate = useNavigate();
   // Scroll to top of the page
   const scrollToTop = () => {
     window.scrollTo({
@@ -31,17 +34,17 @@ function App() {
         <div>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container">
-            <Link className="navbar-brand" to="/">APOD</Link>
+            <Link className="navbar-brand" onClick={(e) => {e.preventDefault(); navigate("/")}} to="/">APOD</Link>
               <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
                   <li className="nav-item">
-                    <Link className="nav-link" to="/">Home</Link>
+                    <Link className="nav-link" onClick={(e) => {e.preventDefault(); navigate("/")}}  to="/">Home</Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/form">Form</Link>
+                    <Link className="nav-link"onClick={(e) => {e.preventDefault(); navigate("/form")}}>Form</Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/usage">Usage</Link>
+                    <Link className="nav-link" onClick={(e) => {e.preventDefault(); navigate("/usage")}} >Usage</Link>
                   </li>
                 </ul>
               </div>

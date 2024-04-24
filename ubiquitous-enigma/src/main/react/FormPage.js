@@ -3,62 +3,94 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import Result from './Result'; // Import the Result component
 import Carousel from 'react-bootstrap/Carousel'; // Import the Carousel component from React Bootstrap
+import useStore from './zustandstore/store';
 
 function FormPage() {
-  const [currentFormData, setCurrentFormData] = useState({});
+  // const [currentFormData, setCurrentFormData] = useState({});
+  const currentFormData = useStore(state => state.currentFormData);
+  const setCurrentFormData = useStore(state => state.setCurrentFormData);
   
-  const [fetchApiResponse, setFetchApiResponse] = useState([]);
-  const [fetchError, setFetchError] = useState(null);
+  // const [fetchApiResponse, setFetchApiResponse] = useState([]);
+  const fetchApiResponse = useStore(state => state.fetchApiResponse);
+  const setFetchApiResponse = useStore(state => state.setFetchApiResponse);
+
+  // const [fetchError, setFetchError] = useState(null);
+  const fetchError = useStore(state => state.fetchError);
+  const setFetchError = useStore(state => state.setFetchError);
+
   const today = new Date().toISOString().split('T')[0]; // Get today's date in yyyy-MM-dd format
-  const [fetchFormData, setFetchFormData] = useState({ 'fetchType': 'date', 'date': today });
+  // const [fetchFormData, setFetchFormData] = useState({ 'fetchType': 'date', 'date': today });
+  const fetchFormData = useStore(state => state.fetchFormData);
+  const setFetchFormData = useStore(state => state.setFetchFormData);
+
   const fiveYearsAgo = new Date();
   fiveYearsAgo.setFullYear(fiveYearsAgo.getFullYear() - 5); // Subtract 5 years
-  const [minDate, setMinDate] = useState('');
+  
+  // const [minDate, setMinDate] = useState('');
+  const minDate = useStore(state => state.minDate); // Get the value of minDate
+  const setMinDate = useStore(state => state.setMinDate); // Set the value of minDate
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('/apicall/fetch', { params: fetchFormData });
+      const responseData = Array.isArray(response.data) ? response.data : [response.data];
+      setFetchApiResponse(responseData);
+      setFetchError(null); // Clear any previous errors
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setFetchError(error.message); // Set error message
+      setFetchApiResponse([]); // Clear the response data
+    }
+  };
 
   useEffect(() => {
     // Make API call when the component mounts with the current date
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('/apicall/fetch', { params: fetchFormData });
-        const responseData = Array.isArray(response.data) ? response.data : [response.data];
-        setFetchApiResponse(responseData);
-        setFetchError(null); // Clear any previous errors
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setFetchError(error.message); // Set error message
-        setFetchApiResponse([]); // Clear the response data
-      }
-    };
-
-    fetchData(); // Call the fetchData function when the component mounts
+    if (fetchApiResponse == null || fetchApiResponse.length === 0) {
+      fetchData(); 
+    }// Call the fetchData function when the component mounts
   }, []);
 
   const handleFetchFormChange = (e) => {
     const { name, value } = e.target;
     // Reset other fields based on selection
     if (name === 'fetchType') {
-      setFetchFormData(prevState => ({
-        [name]: value
-      }));
-      setCurrentFormData({}); // Reset currentFormData
-      setMinDate(''); // Reset minDate
+      setFetchFormData({ start_date : ''});
+      setFetchFormData({ end_date : ''});
+      setFetchFormData({ count : ''});
+      setFetchFormData({ date : ''});
+      setFetchFormData({ [name]: value });
+      resetCurrentFormData();
+      resetMinDate();
     } else if (name === 'start_date' || name === 'end_date') {
-      setFetchFormData(prevState => ({
-        ...prevState,
-        count: '',
-        [name]: value
-      }));
+      setFetchFormData({ date : ''});
+      setFetchFormData({ count : ''});
+      setFetchFormData({ [name]: value });
       if (name === 'start_date') {
         setMinDate(value);
       }
-    } else {
-      setFetchFormData(prevState => ({
-        ...prevState,
-        count: '',
-        start_date: '',
-        end_date: '',
-        [name]: value
-      }));
+    } else if (name === 'date') {
+      setFetchFormData({ start_date : ''});
+      setFetchFormData({ end_date : ''});
+      setFetchFormData({ count : ''});
+      setFetchFormData({ [name]: value });
+    } else if (name === 'count') {
+      setFetchFormData({ start_date : ''});
+      setFetchFormData({ end_date : ''});
+      setFetchFormData({ date : ''});
+      setFetchFormData({ [name]: value });
+    }
+     else {
+      // setFetchFormData(prevState => ({
+      //   ...prevState,
+      //   count: '',
+      //   start_date: '',
+      //   end_date: '',
+      //   [name]: value
+      // }));
+      setFetchFormData({ count : ''});
+      setFetchFormData({ start_date : ''});
+      setFetchFormData({ end_date : ''});
+      setFetchFormData({ [name]: value });
     }
   };
 

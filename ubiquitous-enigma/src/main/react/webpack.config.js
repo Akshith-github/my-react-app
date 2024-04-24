@@ -1,13 +1,13 @@
 var path = require('path');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './index.js',
     devtool: 'eval-source-map',
     cache: true,
     mode: 'development',
     output: {
         path: __dirname,
-        filename: './ubiquitous-enigma/src/main/resources/static/built/bundle.js'
+        filename: '../resources/static/built/bundle.js'
     },
     module: {
         rules: [
